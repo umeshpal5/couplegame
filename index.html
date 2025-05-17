@@ -3,32 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Intimate Couple Adventure ❤️🔥</title>
+    <title>Couple Adventure ❤️🔥</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Welcome Screen -->
     <div id="welcome-screen">
         <h1>Couple Adventure ❤️</h1>
         <p class="disclaimer">For adults only. Play responsibly.</p>
         
-        <input type="text" id="player1" placeholder="Your Name" />
-        <input type="text" id="player2" placeholder="Partner's Name" />
+        <input type="text" id="player1" placeholder="Your Name">
+        <input type="text" id="player2" placeholder="Partner's Name">
         
         <label class="toggle">
-            <input type="checkbox" id="spicy-mode" /> 
+            <input type="checkbox" id="spicy-mode"> 
             <span>Enable Spicy Mode 🔥</span>
         </label>
         
         <button id="start-game">Start Game</button>
     </div>
 
-    <!-- Game Screen -->
-    <div id="game-screen" style="display: none;">
+    <div id="game-screen" style="display:none;">
         <div class="header">
             <button id="back-to-menu">← Menu</button>
             <label class="toggle">
-                <input type="checkbox" id="spicy-toggle" /> 
+                <input type="checkbox" id="spicy-toggle"> 
                 <span>Spicy Mode 🔥</span>
             </label>
         </div>
@@ -36,7 +34,7 @@
         <h2 id="turn-indicator">Player 1's Turn</h2>
         
         <div class="card-container">
-            <div class="card" onclick="handleCardClick()">
+            <div class="card">
                 <div class="front">❤️ Tap to Draw a Card ❤️</div>
                 <div class="back" id="activity-text"></div>
             </div>
@@ -51,6 +49,7 @@
     </div>
 
     <audio id="flip-sound" src="https://www.soundjay.com/buttons/sounds/button-09.mp3"></audio>
+    <audio id="timer-sound" src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3"></audio>
     <script src="script.js"></script>
 </body>
 </html>

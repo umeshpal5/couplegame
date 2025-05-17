@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Couple Adventure 🔥</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Intimate Couple Adventure ❤️🔥</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -25,16 +25,32 @@
 
     <!-- Game Screen -->
     <div id="game-screen" style="display: none;">
-        <h2 id="turn-indicator">Player 1's Turn</h2>
-        <div class="card" onclick="flipCard()">
-            <div class="front">❤️ Tap to Draw a Card ❤️</div>
-            <div class="back" id="activity-text"></div>
+        <div class="header">
+            <button id="back-to-menu">← Menu</button>
+            <label class="toggle">
+                <input type="checkbox" id="spicy-toggle" /> 
+                <span>Spicy Mode 🔥</span>
+            </label>
         </div>
+        
+        <h2 id="turn-indicator">Player 1's Turn</h2>
+        
+        <div class="card-container">
+            <div class="card" onclick="handleCardClick()">
+                <div class="front">❤️ Tap to Draw a Card ❤️</div>
+                <div class="back" id="activity-text"></div>
+            </div>
+        </div>
+        
+        <div id="timer-container">
+            <div id="timer-bar"></div>
+            <div id="timer-text">00:00</div>
+        </div>
+        
+        <button id="next-btn" class="action-btn">Next Card</button>
     </div>
 
-    <!-- Audio for flip sound -->
     <audio id="flip-sound" src="https://www.soundjay.com/buttons/sounds/button-09.mp3"></audio>
-
     <script src="script.js"></script>
 </body>
 </html>

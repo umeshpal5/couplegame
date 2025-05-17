@@ -1,62 +1,56 @@
+/* Mobile-First Design */
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(to right, #ff9a9e, #fad0c4);
+    background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
-    color: #333;
+    padding: 20px;
+    box-sizing: border-box;
+    touch-action: manipulation;
 }
 
 #welcome-screen, #game-screen {
-    background: white;
-    padding: 30px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
     border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
-    max-width: 400px;
-    width: 90%;
+    width: 95%;
+    max-width: 500px;
+    backdrop-filter: blur(5px);
 }
 
-h1 {
-    color: #ff6b6b;
-    margin-bottom: 10px;
-}
-
-.disclaimer {
-    font-size: 12px;
-    color: #888;
-    margin-bottom: 20px;
-}
-
-input {
-    width: 80%;
-    padding: 12px;
-    margin: 10px 0;
-    border: 2px solid #ffb8b8;
-    border-radius: 8px;
-    font-size: 16px;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
 }
 
 .toggle {
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin: 15px 0;
+    gap: 8px;
+    margin: 10px 0;
 }
 
-.toggle span {
-    margin-left: 10px;
-    font-weight: bold;
-    color: #ff6b6b;
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 2px solid #ffb8b8;
+    border-radius: 8px;
+    font-size: 16px;
 }
 
 button {
     background: #ff6b6b;
     color: white;
     border: none;
-    padding: 12px 25px;
+    padding: 12px 20px;
     border-radius: 8px;
     font-size: 16px;
     cursor: pointer;
@@ -67,15 +61,37 @@ button:hover {
     background: #ff5252;
 }
 
-.card {
-    width: 300px;
-    height: 200px;
-    perspective: 1000px;
-    cursor: pointer;
-    margin: 20px auto;
+#back-to-menu {
+    background: transparent;
+    color: #ff6b6b;
+    border: 2px solid #ff6b6b;
+    padding: 8px 15px;
 }
 
-.card .front, .card .back {
+.card-container {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    max-height: 500px;
+    margin: 20px 0;
+}
+
+.card {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: all 0.8s ease;
+    cursor: pointer;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.front, .back {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -83,33 +99,50 @@ button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    font-size: 18px;
     padding: 20px;
     text-align: center;
-    transition: transform 0.6s;
+    font-size: 1.2em;
+    border-radius: 15px;
 }
 
-.card .front {
+.front {
     background: #ff6b6b;
     color: white;
 }
 
-.card .back {
+.back {
     background: white;
     transform: rotateY(180deg);
+    color: #333;
 }
 
-.card.flipped .front {
-    transform: rotateY(180deg);
+#timer-container {
+    width: 80%;
+    height: 10px;
+    background: #ffe6e6;
+    border-radius: 5px;
+    margin: 20px auto;
+    position: relative;
 }
 
-.card.flipped .back {
-    transform: rotateY(0deg);
+#timer-bar {
+    width: 100%;
+    height: 100%;
+    background: #ff6b6b;
+    border-radius: 5px;
+    transition: width 1s linear;
 }
 
-#turn-indicator {
+#timer-text {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: bold;
     color: #ff6b6b;
-    margin-bottom: 20px;
+}
+
+.action-btn {
+    margin-top: 20px;
+    width: 100%;
 }

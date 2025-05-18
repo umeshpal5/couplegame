@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
     // Game Data
     const cardDecks = {
         romantic: [
@@ -9,16 +9,16 @@ document.addEventListener('DOMContentLoaded', () => {
             "Plan your dream vacation together"
         ],
         spicy: [
-            "Kiss passionately for [30s] without breaking contact",
-            "Give a sensual back massage [2m] using only your fingertips",
+            "Kiss passionately for [30s]",
+            "Give a sensual massage [3m]",
             "Take turns blindfolded guessing touch locations [1m]",
-            "Explore scent connection with shared perfume/oil [3m]",
+            "Explore scent connection with shared perfume/oil",
             "Whisper your wildest fantasy in their ear"
         ]
     };
 
     // Game State
-    const state = {
+    const game = {
         players: ["Player 1", "Player 2"],
         currentPlayer: 0,
         usedCards: [],
@@ -29,108 +29,116 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // DOM Elements
-    const elements = {
-        welcomeScreen: document.getElementById("welcome-screen"),
-        gameScreen: document.getElementById("game-screen"),
-        startButton: document.getElementById("start-game"),
-        backButton: document.getElementById("back-to-menu"),
-        playerInputs: [
-            document.getElementById("player1"),
-            document.getElementById("player2")
-        ],
+    const el = {
+        welcome: document.getElementById("welcome-screen"),
+        game: document.getElementById("game-screen"),
+        startBtn: document.getElementById("start-game"),
+        backBtn: document.getElementById("back-to-menu"),
+        player1: document.getElementById("player1"),
+        player2: document.getElementById("player2"),
         turnDisplay: document.getElementById("turn-indicator"),
         cardText: document.getElementById("activity-text"),
         card: document.querySelector(".card"),
-        nextButton: document.getElementById("next-btn"),
-        spicyToggles: {
-            menu: document.getElementById("spicy-mode"),
-            game: document.getElementById("spicy-toggle")
-        },
+        nextBtn: document.getElementById("next-btn"),
+        spicyMenu: document.getElementById("spicy-mode"),
+        spicyGame: document.getElementById("spicy-toggle"),
         timerBar: document.getElementById("timer-bar"),
         timerText: document.getElementById("timer-text"),
+        timerContainer: document.getElementById("timer-container"),
         flipSound: document.getElementById("flip-sound"),
         timerSound: document.getElementById("timer-sound")
     };
 
-    // Event Listeners
-    elements.startButton.addEventListener("click", startGame);
-    elements.backButton.addEventListener("click", returnToMenu);
-    elements.nextButton.addEventListener("click", prepareNextCard);
-    elements.spicyToggles.game.addEventListener("change", toggleSpicyMode);
-    elements.card.addEventListener("click", handleCardClick);
-
-    function startGame() {
-        state.players[0] = elements.playerInputs[0].value || "Player 1";
-        state.players[1] = elements.playerInputs[1].value || "Player 2";
-        state.isSpicyMode = elements.spicyToggles.menu.checked;
-        elements.spicyToggles.game.checked = state.isSpicyMode;
-        
-        updateCardDeck();
-        resetGameState();
-        
-        elements.welcomeScreen.style.display = "none";
-        elements.gameScreen.style.display = "block";
-        updateTurnDisplay();
+    // Initialize
+    function init() {
+        el.startBtn.addEventListener("click", startGame);
+        el.backBtn.addEventListener("click", backToMenu);
+        el.nextBtn.addEventListener("click", nextCard);
+        el.spicyGame.addEventListener("change", toggleSpicyMode);
+        el.card.addEventListener("click", flipCard);
+        el.card.addEventListener('touchstart', function(){}, {passive: true});
     }
 
-    function handleCardClick() {
-        if (state.isCardFlipped) return;
+    function startGame() {
+        // Set player names
+        game.players[0] = el.player1.value.trim() || "Player 1";
+        game.players[1] = el.player2.value.trim() || "Player 2";
         
-        if (state.usedCards.length >= state.activeDeck.length) {
+        // Set spicy mode
+        game.isSpicyMode = el.spicyMenu.checked;
+        el.spicyGame.checked = game.isSpicyMode;
+        
+        // Prepare deck
+        updateDeck();
+        
+        // Switch screens
+        el.welcome.style.display = "none";
+        el.game.style.display = "block";
+        
+        // Reset game
+        resetGame();
+    }
+
+    function flipCard() {
+        if (game.isCardFlipped) return;
+        
+        // Check if all cards used
+        if (game.usedCards.length >= game.activeDeck.length) {
             alert("All cards used! Resetting deck.");
-            state.usedCards = [];
+            game.usedCards = [];
         }
         
+        // Get random card
         let randomIndex;
         do {
-            randomIndex = Math.floor(Math.random() * state.activeDeck.length);
-        } while (state.usedCards.includes(randomIndex));
+            randomIndex = Math.floor(Math.random() * game.activeDeck.length);
+        } while (game.usedCards.includes(randomIndex));
         
-        state.usedCards.push(randomIndex);
-        const selectedCard = state.activeDeck[randomIndex];
+        game.usedCards.push(randomIndex);
+        const card = game.activeDeck[randomIndex];
         
-        // Display card without time marker
-        elements.cardText.textContent = selectedCard.replace(/\[\d+[sm]\]/g, '').trim();
-        elements.card.classList.add("flipped");
+        // Display card
+        el.cardText.textContent = card.replace(/\[\d+[sm]\]/g, '').trim();
+        el.card.classList.add("flipped");
         
-        // Handle timer if present
-        const timeMatch = selectedCard.match(/\[(\d+)([sm])\]/);
+        // Handle timer
+        const timeMatch = card.match(/\[(\d+)([sm])\]/);
         if (timeMatch) {
             startTimer(parseInt(timeMatch[1]), timeMatch[2]);
         } else {
-            hideTimer();
+            el.timerContainer.style.display = "none";
         }
         
-        // Play sound and update UI
-        if (elements.flipSound) {
-            elements.flipSound.currentTime = 0;
-            elements.flipSound.play();
+        // Play sound
+        if (el.flipSound) {
+            el.flipSound.currentTime = 0;
+            el.flipSound.play();
         }
         
-        state.isCardFlipped = true;
-        elements.nextButton.style.display = "block";
-        switchPlayerTurn();
+        game.isCardFlipped = true;
+        el.nextBtn.style.display = "block";
+        switchPlayer();
     }
 
     function startTimer(duration, unit) {
-        clearInterval(state.timer);
+        clearInterval(game.timer);
         const totalSeconds = unit === 'm' ? duration * 60 : duration;
         let timeLeft = totalSeconds;
         
-        elements.timerBar.style.width = "100%";
-        elements.timerText.textContent = formatTime(timeLeft);
-        elements.timerContainer.style.display = "block";
+        el.timerBar.style.width = "100%";
+        el.timerText.textContent = formatTime(timeLeft);
+        el.timerContainer.style.display = "block";
         
-        state.timer = setInterval(() => {
+        game.timer = setInterval(() => {
             timeLeft--;
-            elements.timerBar.style.width = `${(timeLeft / totalSeconds) * 100}%`;
-            elements.timerText.textContent = formatTime(timeLeft);
+            el.timerBar.style.width = `${(timeLeft / totalSeconds) * 100}%`;
+            el.timerText.textContent = formatTime(timeLeft);
             
             if (timeLeft <= 0) {
-                clearInterval(state.timer);
-                if (elements.timerSound) {
-                    elements.timerSound.currentTime = 0;
-                    elements.timerSound.play();
+                clearInterval(game.timer);
+                if (el.timerSound) {
+                    el.timerSound.currentTime = 0;
+                    el.timerSound.play();
                 }
             }
         }, 1000);
@@ -142,50 +150,45 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }
 
-    function hideTimer() {
-        elements.timerContainer.style.display = "none";
-    }
-
-    function prepareNextCard() {
-        clearInterval(state.timer);
-        elements.card.classList.remove("flipped");
-        elements.nextButton.style.display = "none";
-        state.isCardFlipped = false;
-        hideTimer();
+    function nextCard() {
+        clearInterval(game.timer);
+        el.card.classList.remove("flipped");
+        el.nextBtn.style.display = "none";
+        game.isCardFlipped = false;
+        el.timerContainer.style.display = "none";
     }
 
     function toggleSpicyMode() {
-        state.isSpicyMode = elements.spicyToggles.game.checked;
-        updateCardDeck();
-        resetGameState();
+        game.isSpicyMode = el.spicyGame.checked;
+        updateDeck();
+        resetGame();
     }
 
-    function updateCardDeck() {
-        state.activeDeck = [...cardDecks.romantic];
-        if (state.isSpicyMode) {
-            state.activeDeck.push(...cardDecks.spicy);
+    function updateDeck() {
+        game.activeDeck = [...cardDecks.romantic];
+        if (game.isSpicyMode) {
+            game.activeDeck.push(...cardDecks.spicy);
         }
-        state.usedCards = [];
+        game.usedCards = [];
     }
 
-    function switchPlayerTurn() {
-        state.currentPlayer = (state.currentPlayer + 1) % 2;
-        updateTurnDisplay();
+    function switchPlayer() {
+        game.currentPlayer = (game.currentPlayer + 1) % 2;
+        el.turnDisplay.textContent = `${game.players[game.currentPlayer]}'s Turn`;
     }
 
-    function updateTurnDisplay() {
-        elements.turnDisplay.textContent = `${state.players[state.currentPlayer]}'s Turn`;
+    function resetGame() {
+        nextCard();
+        game.currentPlayer = 0;
+        el.turnDisplay.textContent = `${game.players[0]}'s Turn`;
     }
 
-    function resetGameState() {
-        prepareNextCard();
-        state.currentPlayer = 0;
-        updateTurnDisplay();
+    function backToMenu() {
+        resetGame();
+        el.game.style.display = "none";
+        el.welcome.style.display = "block";
     }
 
-    function returnToMenu() {
-        resetGameState();
-        elements.gameScreen.style.display = "none";
-        elements.welcomeScreen.style.display = "block";
-    }
+    // Start the game
+    init();
 });

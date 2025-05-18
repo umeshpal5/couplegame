@@ -1,65 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Passion Play ❤️🔥</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Couple Game</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
-    <div id="welcome-screen">
-        <div class="logo">❤️🔥</div>
-        <h1>Passion Play</h1>
-        <p class="tagline">Couple Adventure Game</p>
-        
-        <div class="input-group">
-            <input type="text" id="player1" placeholder="Your Name">
-            <input type="text" id="player2" placeholder="Partner's Name">
-        </div>
-        
-        <div class="settings">
-            <label class="toggle">
-                <input type="checkbox" id="spicy-mode">
-                <span class="slider"></span>
-                <span class="label">Spicy Mode</span>
-            </label>
-        </div>
-        
-        <button id="start-game" class="pulse-btn">Start Game</button>
-    </div>
 
-    <div id="game-screen" style="display:none;">
-        <div class="header">
-            <button id="back-to-menu" class="icon-btn">←</button>
-            <div id="turn-indicator">Your Turn</div>
-            <label class="toggle small">
-                <input type="checkbox" id="spicy-toggle">
-                <span class="slider"></span>
-            </label>
-        </div>
-        
-        <div class="card-container">
-            <div class="card">
-                <div class="front">
-                    <div class="heart-pulse">❤️</div>
-                    <p>Tap to Draw Card</p>
-                </div>
-                <div class="back" id="activity-text"></div>
-            </div>
-        </div>
-        
-        <div id="timer-container">
-            <div id="timer-bar"></div>
-            <div id="timer-text">00:00</div>
-        </div>
-        
-        <button id="next-btn" class="action-btn">Next Card</button>
-    </div>
+  <div id="welcome-screen">
+    <h1>Welcome to Couple Game</h1>
+    <input id="player1" placeholder="Player 1 Name">
+    <input id="player2" placeholder="Player 2 Name">
+    <label><input type="checkbox" id="spicy-mode"> Spicy Mode</label>
+    <button id="start-game">Start Game</button>
+  </div>
 
-    <audio id="flip-sound" src="https://www.soundjay.com/buttons/sounds/button-09.mp3"></audio>
-    <audio id="timer-sound" src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3"></audio>
-    
-    <script src="script.js"></script>
+  <div id="game-screen" style="display: none;">
+    <div id="turn-indicator"></div>
+    <div class="card">
+      <div id="activity-text"></div>
+    </div>
+    <div id="timer-container" style="display: none;">
+      <div id="timer-bar"></div>
+      <div id="timer-text"></div>
+    </div>
+    <button id="next-btn" style="display: none;">Next</button>
+    <button id="back-to-menu">Back</button>
+    <input type="checkbox" id="spicy-toggle" style="display: none;">
+  </div>
+
+  <audio id="flip-sound" src="flip.mp3" preload="auto"></audio>
+  <audio id="timer-sound" src="timer.mp3" preload="auto"></audio>
+
 </body>
 </html>

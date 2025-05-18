@@ -1,56 +1,61 @@
 body {
   font-family: Arial, sans-serif;
-  text-align: center;
-  background-color: #ffe6e6;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  color: #fff;
   margin: 0;
   padding: 0;
+  text-align: center;
 }
 
-#start-screen, #game-screen {
+.container {
+  margin-top: 50px;
   padding: 20px;
-}
-
-.hidden {
-  display: none;
 }
 
 input {
   padding: 10px;
   margin: 10px;
+  border: none;
+  border-radius: 5px;
   font-size: 16px;
 }
 
 button {
   padding: 10px 20px;
   font-size: 16px;
-  margin: 10px;
+  background-color: #fff;
+  color: #ff4081;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-#card-container {
-  margin: 20px auto;
-  width: 80%;
-  max-width: 500px;
+button:hover {
+  background-color: #ffe6ee;
 }
 
 .card {
-  background-color: #fff0f5;
-  border: 2px solid #ff69b4;
-  border-radius: 10px;
-  padding: 20px;
-  min-height: 150px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  background-color: white;
+  color: #ff4081;
+  margin: 30px auto;
+  padding: 30px;
+  width: 80%;
+  border-radius: 15px;
+  font-size: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.3s;
 }
 
-.card-content {
+.card:hover {
+  transform: scale(1.05);
+}
+
+.hidden {
+  display: none;
+}
+
+#timer {
   font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.card-timer {
-  font-size: 24px;
-  color: #ff1493;
+  margin: 20px;
 }

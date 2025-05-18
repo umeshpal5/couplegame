@@ -3,41 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Couple Adventure ❤️</title>
+    <title>Passion Play ❤️🔥 Couple Card Game</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Welcome Screen -->
     <div id="welcome-screen">
-        <h1>Couple Adventure ❤️</h1>
-        <p class="disclaimer">For adults only. Play responsibly.</p>
+        <h1>Passion Play ❤️🔥</h1>
+        <p class="disclaimer">For couples only. Play responsibly.</p>
         
-        <input type="text" id="player1" placeholder="Your Name">
-        <input type="text" id="player2" placeholder="Partner's Name">
+        <div class="input-group">
+            <input type="text" id="player1" placeholder="Your Name" aria-label="Your Name">
+            <input type="text" id="player2" placeholder="Partner's Name" aria-label="Partner's Name">
+        </div>
         
-        <label class="toggle">
-            <input type="checkbox" id="spicy-mode"> 
-            <span>Enable Spicy Mode 🔥</span>
-        </label>
-        
-        <button id="start-game">Start Game</button>
-    </div>
-
-    <!-- Game Screen -->
-    <div id="game-screen" style="display:none;">
-        <div class="header">
-            <button id="back-to-menu">← Menu</button>
+        <div class="settings">
             <label class="toggle">
-                <input type="checkbox" id="spicy-toggle"> 
-                <span>Spicy Mode 🔥</span>
+                <input type="checkbox" id="spicy-mode">
+                <span class="slider"></span>
+                <span class="label">Spicy Mode 🔥</span>
             </label>
         </div>
         
-        <h2 id="turn-indicator">Player 1's Turn</h2>
+        <button id="start-game" class="pulse">Begin Your Adventure</button>
+    </div>
+
+    <div id="game-screen" style="display:none;">
+        <div class="game-header">
+            <button id="back-to-menu" class="icon-btn">←</button>
+            <div class="intensity-control">
+                <span>Heat Level:</span>
+                <div class="intensity-btns">
+                    <button data-level="1" class="active">Mild</button>
+                    <button data-level="2">Medium</button>
+                    <button data-level="3">Hot</button>
+                </div>
+            </div>
+            <label class="toggle">
+                <input type="checkbox" id="spicy-toggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+        
+        <h2 id="turn-indicator"></h2>
         
         <div class="card-container">
             <div class="card">
-                <div class="front">❤️ Tap to Draw a Card ❤️</div>
+                <div class="front">
+                    <div class="heart">❤️</div>
+                    <p>Tap to Draw a Card</p>
+                </div>
                 <div class="back" id="activity-text"></div>
             </div>
         </div>
@@ -47,13 +62,12 @@
             <div id="timer-text">00:00</div>
         </div>
         
-        <button id="next-btn">Next Card</button>
+        <button id="next-btn" class="action-btn hidden">Next Card</button>
     </div>
 
     <audio id="flip-sound" src="https://www.soundjay.com/buttons/sounds/button-09.mp3"></audio>
     <audio id="timer-sound" src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3"></audio>
     
     <script src="script.js"></script>
-    <script>document.addEventListener('touchstart', function(){}, true);</script>
 </body>
 </html>

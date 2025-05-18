@@ -3,23 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Romantic Card Game</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Spicy Couple Card Game</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>Romantic Card Game</h1>
-    <button id="startBtn">Start</button>
-    <div id="cardDisplay" class="card hidden">
-      <p id="cardText"></p>
-      <p id="cardTimer"></p>
-      <p id="cardIntensity"></p>
-      <div class="navigation">
-        <button id="prevBtn">Previous</button>
-        <button id="nextBtn">Next</button>
+  <div id="start-screen">
+    <h1>Spicy Couple Card Game</h1>
+    <input type="text" id="player1" placeholder="Player 1 Name" />
+    <input type="text" id="player2" placeholder="Player 2 Name" />
+    <button id="start-button">Start Game</button>
+  </div>
+
+  <div id="game-screen" class="hidden">
+    <h2 id="turn-indicator"></h2>
+    <div id="card-container">
+      <div id="card" class="card">
+        <div class="card-content" id="card-text"></div>
+        <div class="card-timer" id="card-timer"></div>
       </div>
     </div>
+    <button id="next-button">Next Card</button>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>

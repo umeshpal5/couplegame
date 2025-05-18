@@ -1,38 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<title>Romantic Card Game</title>
-<link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>Romantic Card Game</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
-<div id="start-screen" class="screen active">
   <h1>Romantic Card Game</h1>
-  <label>
-    Player 1 Name:
-    <input type="text" id="player1-name" placeholder="Your name" />
-  </label>
-  <label>
-    Player 2 Name:
-    <input type="text" id="player2-name" placeholder="Partner's name" />
-  </label>
-  <button id="start-button">Start Game</button>
-</div>
 
-<div id="game-screen" class="screen">
-  <div id="player-turn"></div>
-  <div id="card-container" class="card-container">
-    <div class="card" id="card">
-      <div class="card-front">Tap to Flip</div>
-      <div class="card-back"></div>
-    </div>
+  <div id="start-screen">
+    <label for="player1">Player 1 Name</label>
+    <input type="text" id="player1" placeholder="Enter Player 1's name" />
+    <label for="player2">Player 2 Name</label>
+    <input type="text" id="player2" placeholder="Enter Player 2's name" />
+    <button id="start-button">Start Game</button>
   </div>
-  <div id="timer"></div>
-  <button id="next-button" disabled>Next Card</button>
-</div>
 
-<script src="script.js"></script>
+  <div id="game-screen">
+    <div id="players"></div>
+    <div id="card-container">
+      <div class="card" id="card">
+        <div class="card-front" id="card-front">
+          <div id="card-text">Tap to flip card</div>
+          <div id="card-timer"></div>
+        </div>
+        <div class="card-back">Romantic</div>
+      </div>
+    </div>
+    <div id="timer"></div>
+    <button id="next-button">Next Card</button>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

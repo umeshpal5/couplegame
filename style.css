@@ -1,42 +1,56 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #ffe6e6;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.container {
   text-align: center;
+  background-color: #ffe6e6;
+  margin: 0;
+  padding: 0;
 }
 
-button {
-  padding: 10px 20px;
-  margin: 10px;
-  background-color: #ff4d4d;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #e60000;
-}
-
-.card {
-  background-color: white;
+#start-screen, #game-screen {
   padding: 20px;
-  margin-top: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .hidden {
   display: none;
 }
 
-.navigation {
-  margin-top: 20px;
+input {
+  padding: 10px;
+  margin: 10px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+#card-container {
+  margin: 20px auto;
+  width: 80%;
+  max-width: 500px;
+}
+
+.card {
+  background-color: #fff0f5;
+  border: 2px solid #ff69b4;
+  border-radius: 10px;
+  padding: 20px;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-content {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.card-timer {
+  font-size: 24px;
+  color: #ff1493;
 }

@@ -55,6 +55,7 @@ const cards = [
   { text: "The 60-Second Rule – Do whatever you want for 60s", timer: 60, intensity: 5 },
   { text: "The Forbidden Zone – Pick one no-touch area for 5 minutes", timer: 300, intensity: 4 },
 ];
+
 let player1 = "", player2 = "";
 let currentPlayer = 0;
 let currentCard = null;

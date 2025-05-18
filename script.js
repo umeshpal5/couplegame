@@ -6,47 +6,12 @@ document.addEventListener('DOMContentLoaded', function() {
             "Share your favorite memory together",
             "Slow dance for [1m]",
             "Whisper something you love about them",
-            "Plan your dream vacation together",
-            "Play thumb war (best of 3)",
-            "Exchange massages for [2m]",
-            "Say 'I love you' in a funny voice",
-            "Recreate your first date memory",
-            "Write love notes to each other"
+            "Plan your dream vacation together"
         ],
         spicy: [
             {
-                text: "Slow Kiss – Lock lips for 60 seconds without using hands",
-                timer: "[60s]",
-                intensity: 2
-            },
-            {
-                text: "Neck Nibbles – Lightly kiss and bite your partner's neck for 30 seconds",
-                timer: "[30s]",
-                intensity: 2
-            },
-            {
-                text: "Blindfolded Touch – Partner wears a blindfold; you trace their body with your fingertips",
-                timer: "[2m]",
-                intensity: 3
-            },
-            {
-                text: "Tongue Tracing – Slowly lick from their collarbone to their ear",
-                timer: "[30s]",
-                intensity: 3
-            },
-            {
-                text: "Sensual Sucking – Lightly suck their fingers one by one",
-                timer: "[1m]",
-                intensity: 3
-            },
-            {
-                text: "The Forbidden Zone – Pick one body part they can't touch for 5 minutes",
-                timer: "[5m]",
-                intensity: 3
-            },
-            {
                 text: "Slow Strip – Remove one clothing item every 30 seconds while maintaining eye contact",
-                timer: "[30s per item]",
+                timer: "[30s]",
                 intensity: 3
             },
             {
@@ -64,33 +29,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 intensity: 2
             },
             {
-                text: "Earlobe Suck – Whisper something dirty while nibbling their ear",
-                intensity: 3
-            },
-            {
-                text: "Lipstick Game – Leave kiss marks all over their chest",
-                intensity: 2
-            },
-            {
-                text: "Deep French Kiss – No hands, just tongues exploring for 30 seconds",
+                text: "Tongue Tracing – Slowly lick from their collarbone to their ear",
                 timer: "[30s]",
-                intensity: 3
-            },
-            {
-                text: "Kiss & Tell – Kiss a body part; partner guesses where next",
-                intensity: 2
-            },
-            {
-                text: "Breath Play – Blow softly on their neck, then kiss the spot",
-                intensity: 2
-            },
-            {
-                text: "Tasting You – Kiss your partner after tasting something sweet/spicy",
-                intensity: 2
-            },
-            {
-                text: "The Tease – Kiss everywhere except their lips for 1 minute",
-                timer: "[1m]",
                 intensity: 3
             }
         ]
@@ -105,11 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
         isSpicyMode: false,
         isCardFlipped: false,
         timer: null,
-        currentIntensity: 2, // 1=Mild, 2=Medium, 3=Hot
-        sounds: {
-            flip: document.getElementById("flip-sound"),
-            timer: document.getElementById("timer-sound")
-        }
+        currentIntensity: 2
     };
 
     // DOM Elements
@@ -128,8 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
         spicyGame: document.getElementById("spicy-toggle"),
         timerBar: document.getElementById("timer-bar"),
         timerText: document.getElementById("timer-text"),
-        timerContainer: document.getElementById("timer-container"),
-        intensityBtns: document.querySelectorAll(".intensity-btns button")
+        timerContainer: document.getElementById("timer-container")
     };
 
     // Initialize Game
@@ -141,13 +76,6 @@ document.addEventListener('DOMContentLoaded', function() {
         el.spicyMenu.addEventListener("change", toggleSpicyMode);
         el.spicyGame.addEventListener("change", toggleSpicyMode);
         el.card.addEventListener("click", flipCard);
-        
-        // Intensity Level Buttons
-        el.intensityBtns.forEach(btn => {
-            btn.addEventListener("click", function() {
-                setIntensityLevel(parseInt(this.dataset.level));
-            });
-        });
         
         // iOS touch fix
         document.addEventListener('touchstart', function(){}, {passive: true});
@@ -190,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let attempts = 0;
         
         do {
-            if (game.isSpicyMode && Math.random() > 0.3) { // 30% chance for spicy card
+            if (game.isSpicyMode && Math.random() > 0.3) {
                 const spicyCards = cardDecks.spicy.filter(c => c.intensity <= game.currentIntensity);
                 const availableSpicy = spicyCards.filter(c => !game.usedCards.includes(c.text));
                 if (availableSpicy.length > 0) {
@@ -218,52 +146,43 @@ document.addEventListener('DOMContentLoaded', function() {
         displayCard(card);
         
         // Play sound
-        if (game.sounds.flip) {
-            game.sounds.flip.currentTime = 0;
-            game.sounds.flip.play();
+        const flipSound = document.getElementById("flip-sound");
+        if (flipSound) {
+            flipSound.currentTime = 0;
+            flipSound.play();
         }
         
         game.isCardFlipped = true;
-        el.nextBtn.classList.remove("hidden");
+        el.nextBtn.style.display = "block";
         switchPlayer();
     }
 
     function displayCard(card) {
-        // Clear previous card
         el.cardText.innerHTML = '';
         
         if (typeof card === 'string') {
-            // Romantic card (string)
+            // Romantic card
             const text = card.replace(/\[\d+[sm]\]/g, '').trim();
-            el.cardText.innerHTML = `<p class="card-desc">${text}</p>`;
+            el.cardText.innerHTML = `<p>${text}</p>`;
             
             // Handle timer
             const timeMatch = card.match(/\[(\d+)([sm])\]/);
             if (timeMatch) {
                 startTimer(parseInt(timeMatch[1]), timeMatch[2]);
             } else {
-                el.timerContainer.classList.add("hidden");
+                el.timerContainer.style.display = "none";
             }
         } else {
-            // Spicy card (object)
+            // Spicy card
             const title = document.createElement('h3');
-            title.className = 'card-title';
             title.textContent = card.text.split('–')[0].trim();
+            title.style.color = "var(--primary)";
             
             const desc = document.createElement('p');
-            desc.className = 'card-desc';
             desc.textContent = card.text.split('–')[1].trim();
             
             el.cardText.appendChild(title);
             el.cardText.appendChild(desc);
-            
-            // Intensity indicator
-            if (card.intensity) {
-                const intensity = document.createElement('div');
-                intensity.className = `intensity-indicator intensity-${card.intensity}`;
-                intensity.textContent = ['Mild', 'Medium', 'Hot'][card.intensity - 1];
-                el.cardText.appendChild(intensity);
-            }
             
             // Handle timer
             if (card.timer) {
@@ -272,11 +191,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     startTimer(parseInt(timeMatch[1]), timeMatch[2]);
                 }
             } else {
-                el.timerContainer.classList.add("hidden");
+                el.timerContainer.style.display = "none";
             }
         }
         
-        // Flip card
         el.card.classList.add("flipped");
     }
 
@@ -287,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         el.timerBar.style.width = "100%";
         el.timerText.textContent = formatTime(timeLeft);
-        el.timerContainer.classList.remove("hidden");
+        el.timerContainer.style.display = "block";
         
         game.timer = setInterval(() => {
             timeLeft--;
@@ -296,9 +214,10 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (timeLeft <= 0) {
                 clearInterval(game.timer);
-                if (game.sounds.timer) {
-                    game.sounds.timer.currentTime = 0;
-                    game.sounds.timer.play();
+                const timerSound = document.getElementById("timer-sound");
+                if (timerSound) {
+                    timerSound.currentTime = 0;
+                    timerSound.play();
                 }
             }
         }, 1000);
@@ -313,23 +232,15 @@ document.addEventListener('DOMContentLoaded', function() {
     function nextCard() {
         clearInterval(game.timer);
         el.card.classList.remove("flipped");
-        el.nextBtn.classList.add("hidden");
+        el.nextBtn.style.display = "none";
         game.isCardFlipped = false;
-        el.timerContainer.classList.add("hidden");
+        el.timerContainer.style.display = "none";
     }
 
     function toggleSpicyMode() {
         game.isSpicyMode = el.spicyGame.checked;
         updateDeck();
         resetGame();
-    }
-
-    function setIntensityLevel(level) {
-        game.currentIntensity = level;
-        el.intensityBtns.forEach(btn => {
-            btn.classList.toggle("active", parseInt(btn.dataset.level) === level);
-        });
-        updateDeck();
     }
 
     function updateDeck() {

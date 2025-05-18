@@ -3,36 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Couple Game</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+  <title>Romantic Card Game</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
-  <div id="welcome-screen">
-    <h1>Welcome to Couple Game</h1>
-    <input id="player1" placeholder="Player 1 Name">
-    <input id="player2" placeholder="Player 2 Name">
-    <label><input type="checkbox" id="spicy-mode"> Spicy Mode</label>
-    <button id="start-game">Start Game</button>
-  </div>
-
-  <div id="game-screen" style="display: none;">
-    <div id="turn-indicator"></div>
-    <div class="card">
-      <div id="activity-text"></div>
+  <div class="container">
+    <h1>Romantic Card Game</h1>
+    <button id="startBtn">Start</button>
+    <div id="cardDisplay" class="card hidden">
+      <p id="cardText"></p>
+      <p id="cardTimer"></p>
+      <p id="cardIntensity"></p>
+      <div class="navigation">
+        <button id="prevBtn">Previous</button>
+        <button id="nextBtn">Next</button>
+      </div>
     </div>
-    <div id="timer-container" style="display: none;">
-      <div id="timer-bar"></div>
-      <div id="timer-text"></div>
-    </div>
-    <button id="next-btn" style="display: none;">Next</button>
-    <button id="back-to-menu">Back</button>
-    <input type="checkbox" id="spicy-toggle" style="display: none;">
   </div>
-
-  <audio id="flip-sound" src="flip.mp3" preload="auto"></audio>
-  <audio id="timer-sound" src="timer.mp3" preload="auto"></audio>
-
+  <script src="script.js"></script>
 </body>
 </html>

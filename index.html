@@ -2,25 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Spicy Card Game</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>Romantic Card Game</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="container" id="setupScreen">
-    <h1>Romantic Card Game</h1>
-    <input type="text" id="player1" placeholder="Enter Player 1 Name" />
-    <input type="text" id="player2" placeholder="Enter Player 2 Name" />
-    <button id="startGame">Start Game</button>
+  <h1>Romantic Card Game</h1>
+
+  <div id="start-screen">
+    <label for="player1">Player 1 Name</label>
+    <input type="text" id="player1" placeholder="Enter Player 1's name" />
+    <label for="player2">Player 2 Name</label>
+    <input type="text" id="player2" placeholder="Enter Player 2's name" />
+    <button id="start-button">Start Game</button>
   </div>
 
-  <div class="container hidden" id="gameScreen">
-    <h2 id="turnIndicator"></h2>
-    <div id="cardContainer">
-      <div id="card" class="card">Tap to reveal card</div>
+  <div id="game-screen">
+    <div id="players"></div>
+    <div id="card-container">
+      <div class="card" id="card">
+        <div class="card-front" id="card-front">
+          <div id="card-text">Tap to flip card</div>
+          <div id="card-timer"></div>
+        </div>
+        <div class="card-back">Romantic</div>
+      </div>
     </div>
-    <div id="timer" class="hidden">Time Left: <span id="timerValue"></span></div>
-    <button id="nextTurn" class="hidden">Next Turn</button>
+    <div id="timer"></div>
+    <button id="next-button">Next Card</button>
   </div>
 
   <script src="script.js"></script>

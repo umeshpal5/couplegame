@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Couple Adventure ❤️🔥</title>
+    <title>Couple Adventure ❤️</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Welcome Screen -->
     <div id="welcome-screen">
         <h1>Couple Adventure ❤️</h1>
         <p class="disclaimer">For adults only. Play responsibly.</p>
@@ -22,6 +23,7 @@
         <button id="start-game">Start Game</button>
     </div>
 
+    <!-- Game Screen -->
     <div id="game-screen" style="display:none;">
         <div class="header">
             <button id="back-to-menu">← Menu</button>
@@ -45,11 +47,13 @@
             <div id="timer-text">00:00</div>
         </div>
         
-        <button id="next-btn" class="action-btn">Next Card</button>
+        <button id="next-btn">Next Card</button>
     </div>
 
     <audio id="flip-sound" src="https://www.soundjay.com/buttons/sounds/button-09.mp3"></audio>
     <audio id="timer-sound" src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3"></audio>
+    
     <script src="script.js"></script>
+    <script>document.addEventListener('touchstart', function(){}, true);</script>
 </body>
 </html>
